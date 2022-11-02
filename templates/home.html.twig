@@ -1,0 +1,49 @@
+{% include 'base.html.twig' %}
+
+{% block title%}
+    <title>Parfum Cabaret</title>
+{% endblock %}
+
+{% block header %}
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav flex">
+                    <li class="nav-item">
+                        <a class="nav-link active menu" aria-current="page" href="#">Accueil</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Nos Prestations
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">On est passé par là </a></li>
+                            <li><a class="dropdown-item" href="#">Galerie Photos</a></li>
+                        </ul>
+                    </li>
+                    <img width="150px" height="auto" src="{{ asset('assets/img/LogoBlanc.png') }}" alt="Logo Parfum Cabaret">
+                    <li class="nav-item">
+                        <a class="nav-link menu" href="#">Nos Artistes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock%}
+{% block body %}
+        <h1> Bienvenue sur le site de Parfum Cabaret</h1>
+        <div class="banniere">
+            <img class="imgAccueil" src="{{ asset('assets/img/banniere.jpeg') }}" alt="public salle de spectacle">
+        </div>
+    {% block main %}
+        <div class="tapis">
+            <div class="text">
+                <h2> Notre histoire ...</h2>
+                <p> Nous sommes une association loi 1901 </p>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}
