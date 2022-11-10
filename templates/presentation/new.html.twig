@@ -1,0 +1,13 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Nouvelle Presentation{% endblock %}
+
+{% block body %}
+    {% block texte %}
+        <h1 class="white">Créer une Presentation</h1>
+
+        {{ include('presentation/_form.html.twig') }}
+
+        <a class="white" href {{ path('app_presentation_index') }}>retour à la liste</a>
+    {% endblock %}
+{% endblock %}

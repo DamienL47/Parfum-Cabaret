@@ -10,7 +10,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav flex">
                     <li class="nav-item">
-                        <a class="nav-link active menu" aria-current="page" href="#">Accueil</a>
+                        <a class="nav-link active menu" aria-current="page" href="{{path('Accueil')}}">Accueil</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,22 +28,65 @@
                     <li class="nav-item">
                         <a class="nav-link menu" href="#">Contact</a>
                     </li>
+                    {% if is_granted('ROLE_MANAGER') %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle menu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Menu manager
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{path('app_user_new')}}">Ajouter un artiste</a></li>
+                                <li><a class="dropdown-item" href="#">Galerie Photos</a></li>
+                                <li><a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-{% endblock%}
+{% endblock %}
 {% block body %}
         <h1> Bienvenue sur le site de Parfum Cabaret</h1>
         <div class="banniere">
             <img class="imgAccueil" src="{{ asset('assets/img/banniere.jpeg') }}" alt="public salle de spectacle">
         </div>
     {% block main %}
-        <div class="tapis">
+        <div class="zone">
+            <img src="{{ asset('assets/img/tapisvelour.jpeg') }}" alt="tapis rouge velour" class="tapis">
+            {% block texte %}
             <div class="text">
-                <h2> Notre histoire ...</h2>
-                <p> Nous sommes une association loi 1901 </p>
+                {% if is_granted('ROLE_MANAGER') %}
+                    <a href="{{path('app_presentation_new')}}">Ajouter une présentation</a>
+                {% endif %}
+                {% for presentation in presentation %}
+                    <p class="presentation">{{ presentation.text|nl2br }}</p>
+                    {% if is_granted('ROLE_MANAGER') %}
+                        <a href="{{path('app_presentation_edit', {id: presentation.id})}}">Éditer la présentation</a>
+                    {% endif %}
+                {% endfor %}
             </div>
+            {% endblock %}
         </div>
     {% endblock %}
+{% endblock %}
+{% block footer %}
+    <div class="zoneFooter">
+        <section class="reseaux">
+            <h5 class="or">Retrouvez-nous sur <br>les réseaux sociaux</h5>
+            <a href="https://www.facebook.com/ParfumCabaretSpectacle"><img width="50px" src="{{asset('assets/img/logoFacebook.png')}}" alt="logo facebook"></a>
+        </section>
+        <section class="contactFooter">
+            <h5 class="or">Contactez-nous</h5>
+            <h6 class="white">Par téléphone au :<br> <a href="{{"tel:0681304287"}}">06.81.30.42.87</a></h6>
+            <h6 class="white">Ou par mail à :<br> <a href="{{"mailto:contact@parfumcabaret.fr"}}">contact@parfumcabaret.fr</a></h6>
+        </section>
+        <section class="mentions">
+            <h5 class="or">Mentions légales</h5>
+            <h5 class="or">RGPD</h5>
+
+        </section>
+    </div>
+    <div class="copyright">
+        <p class="or">2022 Design et réalisation : <a href="{{"https://www.facebook.com/damien.lataste.5/"}}">Damien Lataste</a> </p>
+    </div>
 {% endblock %}
